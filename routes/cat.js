@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import Cat from './cat_model';
+import Cat from '../models/cat';
 
 const cats = app => {
 

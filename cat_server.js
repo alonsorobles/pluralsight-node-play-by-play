@@ -1,6 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import cats from './cat_routes';
+import cats from './routes/cat';
 import mongoose from 'mongoose';
 
 mongoose.connect('mongodb://localhost/cats', {useMongoClient: true});
@@ -12,10 +12,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 cats(app);
 
-app.get('/', (req, res) => {
-  res.json({hello: 'world'});
-});
-
 app.listen(3000, () => {
-  console.log('Server running at http://127.0.0.1:3000/');
+  console.log('Cat server running at http://127.0.0.1:3000/');
 });

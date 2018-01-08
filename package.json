@@ -2,9 +2,11 @@
   "name": "pluralsight-node-play-by-play",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js --exec babel-node",
+    "start": "npm-run-all --parallel start:petServer start:catServer start:dogServer",
+    "start:petServer": "nodemon pet_server.js --exec babel-node",
+    "start:catServer": "nodemon cat_server.js --exec babel-node",
+    "start:dogServer": "nodemon dog_server.js --exec babel-node",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -13,12 +15,15 @@
   "devDependencies": {
     "babel-cli": "6.26.0",
     "babel-preset-env": "1.6.1",
-    "nodemon": "1.14.9"
+    "nodemon": "1.14.9",
+    "npm-run-all": "4.1.2"
   },
   "dependencies": {
+    "async": "2.6.0",
     "body-parser": "1.18.2",
     "express": "4.16.2",
     "lodash": "4.17.4",
-    "mongoose": "4.13.9"
+    "mongoose": "4.13.9",
+    "request": "2.83.0"
   }
 }
