@@ -1,7 +1,9 @@
 import request from 'request';
 import async from 'async';
+import redis from 'redis';
 
 const r = request.defaults({json: true});
+const client = redis.createClient(6379, '127.0.0.1');
 
 const pets = app => {
 
@@ -22,14 +24,28 @@ const pets = app => {
         })
       },
       dog: callback => {
-        r({uri: 'http://localhost:3001/dog'}, (error, response, body) => {
+        client.get('http://localhost:3001/dog', (error, dog) => {
           if (error) {
             callback({service: 'dog', error});
           }
-          if (!error && response.statusCode === 200) {
-            callback(null, body.data);
+          if (dog) {
+            callback(null, JSON.parse(dog));
           } else {
-            callback(response.statusCode);
+            r({uri: 'http://localhost:3001/dog'}, (error, response, body) => {
+              if (error) {
+                callback({service: 'dog', error});
+              }
+              if (!error && response.statusCode === 200) {
+                client.setex('http://localhost:3001/dog', 10, JSON.stringify(body.data), error => {
+                  if (error) {
+                    throw error;
+                  }
+                });
+                callback(null, body.data);
+              } else {
+                callback(response.statusCode);
+              }
+            })
           }
         })
       },

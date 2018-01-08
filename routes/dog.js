@@ -21,7 +21,8 @@ const dogs = app => {
       if (err) {
         res.json({info: 'error finding dogs', error: err});
       }
-      res.json({info: 'dogs found successfully', data: dogs});
+      //res.json({info: 'dogs found successfully', data: dogs});
+      setTimeout(() => res.json({info: 'dogs found successfully', data: dogs}), 10000);
     });
   });
 
