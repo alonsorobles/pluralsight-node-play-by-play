@@ -18,15 +18,14 @@ const cats = app => {
   });
 
   app.put('/cat/:id', (req, res) => {
-    const index = _.find(_cats, {name: req.params.id});
+    const index = _.findIndex(_cats, {name: req.params.id});
     _.merge(_cats[index], req.body);
     res.json({info: 'cat updated successfully'});
   });
 
   app.delete('/cat/:id', (req, res) => {
-    const index = _.find(_cats, {name: req.params.id});
-    _.pull(cats, index);
-    res.json({info: 'cat deleted successfully'});
+    _.remove(_cats, cat => (cat.name === req.params.id));
+    res.json({info: 'cat removed successfully'});
   });
 
 };

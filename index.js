@@ -9,6 +9,10 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 cats(app);
 
+app.get('/', (req, res) => {
+  res.json({hello: 'world'});
+});
+
 app.listen(3000, () => {
   console.log('Server running at http://127.0.0.1:3000/');
 });
