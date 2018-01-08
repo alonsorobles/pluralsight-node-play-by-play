@@ -1,9 +1,9 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import cats from './cats';
+import cats from './cat_routes';
 import mongoose from 'mongoose';
 
-mongoose.createConnection('mongodb://localhost/casts');
+mongoose.connect('mongodb://localhost/cats', {useMongoClient: true});
 
 const app = express();
 
